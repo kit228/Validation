@@ -13,6 +13,7 @@
 		F4049703270B61C300380C7B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4049702270B61C300380C7B /* Assets.xcassets */; };
 		F4049706270B61C300380C7B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4049704270B61C300380C7B /* LaunchScreen.storyboard */; };
 		F4C44164270C510400C0BFA4 /* StartupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C44163270C510400C0BFA4 /* StartupViewController.swift */; };
+		F4C44168270CE41C00C0BFA4 /* AttributedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C44167270CE41C00C0BFA4 /* AttributedTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +25,7 @@
 		F4049705270B61C300380C7B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F4049707270B61C300380C7B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4C44163270C510400C0BFA4 /* StartupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartupViewController.swift; sourceTree = "<group>"; };
+		F4C44167270CE41C00C0BFA4 /* AttributedTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AttributedTextField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +62,7 @@
 				F40496FB270B61BF00380C7B /* SceneDelegate.swift */,
 				F4C44163270C510400C0BFA4 /* StartupViewController.swift */,
 				F40496FD270B61BF00380C7B /* RegistrationViewController.swift */,
+				F4C44167270CE41C00C0BFA4 /* AttributedTextField.swift */,
 				F4049702270B61C300380C7B /* Assets.xcassets */,
 				F4049704270B61C300380C7B /* LaunchScreen.storyboard */,
 				F4049707270B61C300380C7B /* Info.plist */,
@@ -140,6 +143,7 @@
 				F40496FE270B61BF00380C7B /* RegistrationViewController.swift in Sources */,
 				F40496FA270B61BF00380C7B /* AppDelegate.swift in Sources */,
 				F40496FC270B61BF00380C7B /* SceneDelegate.swift in Sources */,
+				F4C44168270CE41C00C0BFA4 /* AttributedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

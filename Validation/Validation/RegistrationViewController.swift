@@ -7,9 +7,6 @@
 
 import UIKit
 
-let kLabelWidth: CGFloat = 300
-let kLabelHeight: CGFloat = 40
-
 class RegistrationViewController: UIViewController {
     
     // MARK: - UI Elements
@@ -18,25 +15,12 @@ class RegistrationViewController: UIViewController {
         let label = UILabel()
         label.font = label.font.withSize(40)
         label.textAlignment = .center
-        label.text = "Регистрация"
-        label.text?.uppercased()
+        label.text = "Регистрация".uppercased()
         return label
     }()
     
-    private lazy var nameTextField: UITextField = {
-        //let textField = UITextField(frame: CGRect(x: 0, y: 0, width: kLabelWidth, height: kLabelHeight))
-        let textField = UITextField()
-        textField.backgroundColor = .lightGray
-        textField.layer.cornerRadius = 10
-        textField.layer.borderWidth = 2
-        textField.layer.borderColor = UIColor.black.cgColor
-        textField.font = textField.font?.withSize(30)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        textField.attributedPlaceholder = NSAttributedString(string: "Имя", attributes: [.paragraphStyle: paragraphStyle])
-        textField.clearButtonMode = .whileEditing
-        return textField
-    }()
+    private lazy var nameTextField = AttributedTextField(placeHolderText: "Имя")
+    private lazy var lastNameTextField = AttributedTextField(placeHolderText: "Фамилия")
     
     // MARK: - Lifecycle
 
@@ -101,12 +85,14 @@ class RegistrationViewController: UIViewController {
     private func setupSubviews() {
         view.addSubview(registrationLabel)
         view.addSubview(nameTextField)
+        view.addSubview(lastNameTextField)
         setupConstraints()
     }
     
     private func setupConstraints() {
         setupConstraintsForRegistrationLabel()
         setupConstraintsForNameTextField()
+        setupConstraintsForLastNameTextField()
     }
     
     // MARK: - Constraints
@@ -124,12 +110,12 @@ class RegistrationViewController: UIViewController {
         NSLayoutConstraint.activate([NSLayoutConstraint(item: nameTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: nameTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
     }
+    
+    private func setupConstraintsForLastNameTextField() {
+        lastNameTextField.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([lastNameTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 0), lastNameTextField.centerYAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: -80)])
+        NSLayoutConstraint.activate([NSLayoutConstraint(item: lastNameTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
+        NSLayoutConstraint.activate([NSLayoutConstraint(item: lastNameTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
+    }
 
-}
-
-extension RegistrationViewController {
-    private let attributedTextField: UITextField = {
-        let textField = UITextField()
-        return textField
-    }()
 }
