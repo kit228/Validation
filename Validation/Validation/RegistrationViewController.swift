@@ -48,7 +48,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         setupSubviews()
         addKeyboardObservers()
         addDismissKeyboardViewRecognizer()
-        addTextFieldDelegate()
+        setupTextFiels()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -67,43 +67,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Validate registration
     @objc func tappedRegistration() {
         print("Нажата кнопка регистрации")
-    }
-    
-    // MARK: - Textfield Delegates
-    
-    // delegates for textFiels
-    private func addTextFieldDelegate() {
-        nameTextField.delegate = self
-        lastNameTextField.delegate = self
-        birthDateTextField.delegate = self
-        passwordTextField.delegate = self
-        passwordRepeatTextField.delegate = self
-    }
-    
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        // scroll to textField when editing
-        
-//        scrollVIew.setContentOffset(CGPoint(x: 0, y: textField.superview?.frame.origin.y ?? 0), animated: true)
-        
-    }
-    
-    // action when at selected field pressed button return on keyboard
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        if textField == nameTextField {
-            lastNameTextField.becomeFirstResponder()
-        } else if textField == lastNameTextField {
-            birthDateTextField.becomeFirstResponder()
-        } else if textField == birthDateTextField {
-            passwordTextField.becomeFirstResponder()
-        } else if textField == passwordTextField {
-            passwordRepeatTextField.becomeFirstResponder()
-        } else {
-            hideKeyboard()
-        }
-        return true
     }
     
     // MARK: - Keyboard
@@ -149,6 +112,48 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
+    // MARK: - Setup textFields
+    
+    private func setupTextFiels() {
+        passwordTextField.isSecureTextEntry = true
+        passwordRepeatTextField.isSecureTextEntry = true
+        addTextFieldDelegate()
+    }
+    
+    // delegates for textFiels
+    private func addTextFieldDelegate() {
+        nameTextField.delegate = self
+        lastNameTextField.delegate = self
+        birthDateTextField.delegate = self
+        passwordTextField.delegate = self
+        passwordRepeatTextField.delegate = self
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        // scroll to textField when editing
+        
+//        scrollVIew.setContentOffset(CGPoint(x: 0, y: textField.superview?.frame.origin.y ?? 0), animated: true)
+        
+    }
+    
+    // action when at selected field pressed button return on keyboard
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        if textField == nameTextField {
+            lastNameTextField.becomeFirstResponder()
+        } else if textField == lastNameTextField {
+            birthDateTextField.becomeFirstResponder()
+        } else if textField == birthDateTextField {
+            passwordTextField.becomeFirstResponder()
+        } else if textField == passwordTextField {
+            passwordRepeatTextField.becomeFirstResponder()
+        } else {
+            hideKeyboard()
+        }
+        return true
+    }
+    
     // MARK: - Layout
     
     private func setupSubviews() {
@@ -179,7 +184,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     // MARK: - Constraints
     
     private func setupScrollView() {
-//        scrollVIew.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         scrollVIew.translatesAutoresizingMaskIntoConstraints = false
         let attributes: [NSLayoutConstraint.Attribute] = [.top, .bottom, .leading, .trailing]
         NSLayoutConstraint.activate(attributes.map {
@@ -195,7 +199,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         NSLayoutConstraint.activate(attributes.map {
             NSLayoutConstraint(item: contentView, attribute: $0, relatedBy: .equal, toItem: scrollVIew, attribute: $0, multiplier: 1, constant: 0)
         })
-        //contentView.widthAnchor.constraint(equalTo: scrollVIew.widthAnchor).isActive = true
         contentView.centerXAnchor.constraint(equalTo: scrollVIew.centerXAnchor).isActive = true
         contentView.centerYAnchor.constraint(equalTo: scrollVIew.centerYAnchor).isActive = true
     }
