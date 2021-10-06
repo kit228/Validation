@@ -15,14 +15,15 @@ class AttributedTextField: UITextField {
     init(placeHolderText: String?) {
         super.init(frame: .zero)
         
-        backgroundColor = .lightGray
+        backgroundColor = .white
+        textAlignment = .center
         layer.cornerRadius = 10
         layer.borderWidth = 2
         layer.borderColor = UIColor.black.cgColor
         font = font?.withSize(25)
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.alignment = .center
-        attributedPlaceholder = NSAttributedString(string: placeHolderText ?? "", attributes: [.paragraphStyle: paragraphStyle])
+        attributedPlaceholder = NSAttributedString(string: placeHolderText ?? "", attributes: [.paragraphStyle: paragraphStyle, NSAttributedString.Key.foregroundColor: UIColor.gray])
         clearButtonMode = .whileEditing
     }
     
