@@ -31,6 +31,8 @@ class StartupViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
         setupSubviews()
         startRefistrationViewController()
     }
