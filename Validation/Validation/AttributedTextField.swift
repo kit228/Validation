@@ -12,6 +12,8 @@ let kLabelHeight: CGFloat = 40
 
 class AttributedTextField: UITextField {
     
+    var isValid = false
+    
     init(placeHolderText: String?) {
         super.init(frame: .zero)
         

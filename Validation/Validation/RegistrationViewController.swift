@@ -70,9 +70,27 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         print("Нажата кнопка регистрации")
         
         if Validator().nameIsValid(nameTextField.text) {
-            print("Поле имени валидно")
+            nameTextField.isValid = true
         } else {
+            nameTextField.isValid = false
             nameTextField.layer.borderColor = UIColor.red.cgColor
+            nameTextField.textColor = .red
+        }
+        
+        if Validator().nameIsValid(lastNameTextField.text) {
+            lastNameTextField.isValid = true
+        } else {
+            lastNameTextField.isValid = false
+            lastNameTextField.layer.borderColor = UIColor.red.cgColor
+            lastNameTextField.textColor = .red
+        }
+        
+        if Validator().dateIsValid(birthDateTextField.text) {
+            birthDateTextField.isValid = true
+        } else {
+            birthDateTextField.isValid = false
+            birthDateTextField.layer.borderColor = UIColor.red.cgColor
+            birthDateTextField.textColor = .red
         }
     }
     
@@ -124,6 +142,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     private func setupTextFiels() {
         passwordTextField.isSecureTextEntry = true
         passwordRepeatTextField.isSecureTextEntry = true
+        birthDateTextField.keyboardType = .decimalPad
         addTextFieldDelegate()
     }
     
@@ -137,11 +156,14 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        
         // scroll to textField when editing
         
 //        scrollVIew.setContentOffset(CGPoint(x: 0, y: textField.superview?.frame.origin.y ?? 0), animated: true)
         textField.layer.borderColor = UIColor.black.cgColor
+        textField.textColor = .black
     }
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         // action when at selected field pressed button return on keyboard
@@ -159,6 +181,26 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
             hideKeyboard()
         }
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        // make textField supported mask:
+        
+        if textField == birthDateTextField {
+            if birthDateTextField.text?.count == 2 || birthDateTextField.text?.count == 5 {
+                //Handle backspace being pressed
+                if !(string == "") {
+                    // append the text
+                    birthDateTextField.text = birthDateTextField.text! + "."
+                }
+            }
+            // check the condition not exceed 9 chars
+            return !(birthDateTextField.text!.count > 9 && (string.count ) > range.length)
+        } else {
+            return true
+        }
+        
     }
     
     // MARK: - Layout
@@ -226,28 +268,28 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private func setupConstraintsForLastNameTextField() {
         lastNameTextField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([lastNameTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), lastNameTextField.centerYAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 40)])
+        NSLayoutConstraint.activate([lastNameTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), lastNameTextField.centerYAnchor.constraint(equalTo: nameTextField.bottomAnchor, constant: 50)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: lastNameTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: lastNameTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
     }
     
     private func setupConstraintsBirthDateTextField() {
         birthDateTextField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([birthDateTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), birthDateTextField.centerYAnchor.constraint(equalTo: lastNameTextField.bottomAnchor, constant: 100)])
+        NSLayoutConstraint.activate([birthDateTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), birthDateTextField.centerYAnchor.constraint(equalTo: lastNameTextField.bottomAnchor, constant: 50)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: birthDateTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: birthDateTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
     }
     
     private func setupConstraintsPasswordTextField() {
         passwordTextField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([passwordTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), passwordTextField.centerYAnchor.constraint(equalTo: birthDateTextField.bottomAnchor, constant: 100)])
+        NSLayoutConstraint.activate([passwordTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), passwordTextField.centerYAnchor.constraint(equalTo: birthDateTextField.bottomAnchor, constant: 50)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: passwordTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: passwordTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
     }
     
     private func setupConstraintsPasswordRepeatTextField() {
         passwordRepeatTextField.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([passwordRepeatTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), passwordRepeatTextField.centerYAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 40)])
+        NSLayoutConstraint.activate([passwordRepeatTextField.centerXAnchor.constraint(equalTo: contentView.centerXAnchor, constant: 0), passwordRepeatTextField.centerYAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant: 50)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: passwordRepeatTextField, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .width, multiplier: 1, constant: kLabelWidth)])
         NSLayoutConstraint.activate([NSLayoutConstraint(item: passwordRepeatTextField, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .height, multiplier: 1, constant: kLabelHeight)])
     }
