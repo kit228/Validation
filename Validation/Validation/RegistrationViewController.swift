@@ -25,7 +25,7 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private lazy var lastNameTextField = AttributedTextField(placeHolderText: "Фамилия")
     private lazy var nameTextField = AttributedTextField(placeHolderText: "Имя")
-    private lazy var birthDateTextField = AttributedTextField(placeHolderText: "Дата рождения")
+    private lazy var birthDateTextField = AttributedTextField(placeHolderText: "Дата рождения дд.мм.ггг")
     private lazy var passwordTextField = AttributedTextField(placeHolderText: "Пароль")
     private lazy var passwordRepeatTextField = AttributedTextField(placeHolderText: "Повторите пароль")
     
@@ -64,9 +64,16 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         removeKeyboardObservers()
     }
     
-    // MARK: - Validate registration
+    // MARK: - Validate fields
+    
     @objc func tappedRegistration() {
         print("Нажата кнопка регистрации")
+        
+        if Validator().nameIsValid(nameTextField.text) {
+            print("Поле имени валидно")
+        } else {
+            nameTextField.layer.borderColor = UIColor.red.cgColor
+        }
     }
     
     // MARK: - Keyboard
@@ -133,12 +140,12 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         // scroll to textField when editing
         
 //        scrollVIew.setContentOffset(CGPoint(x: 0, y: textField.superview?.frame.origin.y ?? 0), animated: true)
-        
+        textField.layer.borderColor = UIColor.black.cgColor
     }
-    
-    // action when at selected field pressed button return on keyboard
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        // action when at selected field pressed button return on keyboard
+        
         textField.resignFirstResponder()
         if textField == nameTextField {
             lastNameTextField.becomeFirstResponder()
