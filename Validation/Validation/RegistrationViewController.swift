@@ -68,30 +68,15 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     @objc func tappedRegistration() {
         print("Нажата кнопка регистрации")
+        let validator = Validator()
         
-        if Validator().nameIsValid(nameTextField.text) {
-            nameTextField.isValid = true
-        } else {
-            nameTextField.isValid = false
-            nameTextField.layer.borderColor = UIColor.red.cgColor
-            nameTextField.textColor = .red
-        }
+        validator.nameIsValid(nameTextField.text) ? nameTextField.isValid = true : markTextFieldInvalid(nameTextField)
         
-        if Validator().nameIsValid(lastNameTextField.text) {
-            lastNameTextField.isValid = true
-        } else {
-            lastNameTextField.isValid = false
-            lastNameTextField.layer.borderColor = UIColor.red.cgColor
-            lastNameTextField.textColor = .red
-        }
+        validator.nameIsValid(lastNameTextField.text) ? lastNameTextField.isValid = true : markTextFieldInvalid(lastNameTextField)
         
-        if Validator().dateIsValid(birthDateTextField.text) {
-            birthDateTextField.isValid = true
-        } else {
-            birthDateTextField.isValid = false
-            birthDateTextField.layer.borderColor = UIColor.red.cgColor
-            birthDateTextField.textColor = .red
-        }
+        validator.dateIsValid(birthDateTextField.text) ? birthDateTextField.isValid = true : markTextFieldInvalid(birthDateTextField)
+        
+        validator.passwordIsValid(passwordTextField.text) ? passwordTextField.isValid = true : markTextFieldInvalid(passwordTextField)
     }
     
     // MARK: - Keyboard
@@ -141,9 +126,17 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     
     private func setupTextFiels() {
         passwordTextField.isSecureTextEntry = true
+        passwordTextField.textContentType = .oneTimeCode
         passwordRepeatTextField.isSecureTextEntry = true
+        passwordRepeatTextField.textContentType = .oneTimeCode
         birthDateTextField.keyboardType = .decimalPad
         addTextFieldDelegate()
+    }
+    
+    private func markTextFieldInvalid(_ attributedTextField: AttributedTextField) {
+        attributedTextField.isValid = false
+        attributedTextField.layer.borderColor = UIColor.red.cgColor
+        attributedTextField.textColor = .red
     }
     
     // delegates for textFiels
