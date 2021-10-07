@@ -39,9 +39,10 @@ class Validator {
     }
     
     func passwordIsValid(_ string: String?) -> Bool {
+        print("Строка пароля: \(string)")
         guard let string = string else { return false }
         let password = string.trimmingCharacters(in: .whitespaces) // take off whitespaces
-        let passwordRegx = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&<>*~:`-]).{8,}$"
+        let passwordRegx = "^(?=.*[a-z])(?=.*[A-Z])(?=.*?[0-9])(?=.*[$@$#!%*?&]).{6,}$"
         let passwordCheck = NSPredicate(format: "SELF MATCHES %@", passwordRegx)
         return passwordCheck.evaluate(with: password)
     }

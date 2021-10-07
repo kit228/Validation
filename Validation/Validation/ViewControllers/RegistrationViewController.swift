@@ -44,7 +44,6 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        view.backgroundColor = UIColor(named: "PrettyRed")
         setupSubviews()
         addKeyboardObservers()
         addDismissKeyboardViewRecognizer()
@@ -69,14 +68,26 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
     @objc func tappedRegistration() {
         print("Нажата кнопка регистрации")
         let validator = Validator()
-        
+
         validator.nameIsValid(nameTextField.text) ? nameTextField.isValid = true : markTextFieldInvalid(nameTextField)
-        
+
         validator.nameIsValid(lastNameTextField.text) ? lastNameTextField.isValid = true : markTextFieldInvalid(lastNameTextField)
-        
+
         validator.dateIsValid(birthDateTextField.text) ? birthDateTextField.isValid = true : markTextFieldInvalid(birthDateTextField)
-        
+
         validator.passwordIsValid(passwordTextField.text) ? passwordTextField.isValid = true : markTextFieldInvalid(passwordTextField)
+
+        validator.passwordIsValid(passwordRepeatTextField.text) ? passwordRepeatTextField.isValid = true : markTextFieldInvalid(passwordRepeatTextField)
+
+        if nameTextField.isValid && lastNameTextField.isValid && birthDateTextField.isValid && passwordTextField.isValid && passwordRepeatTextField.isValid {
+            if passwordTextField.text != passwordRepeatTextField.text {
+                markTextFieldInvalid(passwordRepeatTextField)
+            } else {
+                guard let name = nameTextField.text else { return }
+                toMainScreen(name: name)
+            }
+        }
+        
     }
     
     // MARK: - Keyboard
@@ -196,9 +207,17 @@ class RegistrationViewController: UIViewController, UITextFieldDelegate {
         
     }
     
+    // MARK: - Routers
+    
+    private func toMainScreen(name: String) {
+        let mainView = MainScreenViewController(name: name)
+        self.present(mainView, animated: true, completion: nil)
+    }
+    
     // MARK: - Layout
     
     private func setupSubviews() {
+        view.backgroundColor = UIColor(named: "PrettyRed")
         view.addSubview(scrollVIew)
         scrollVIew.addSubview(contentView)
         contentView.addSubview(registrationLabel)
